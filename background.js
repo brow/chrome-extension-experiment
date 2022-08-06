@@ -1,8 +1,22 @@
 // background.js
 
-let color = '#3aa757';
-
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ color });
-  console.log('Default background color set to %cgreen', `color: ${color}`);
+  // Disable action by default
+  chrome.action.disable();
+
+  // Enable action on GitHub Pull Requests
+  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+    chrome.declarativeContent.onPageChanged.addRules([
+      {
+        conditions: [
+          new chrome.declarativeContent.PageStateMatcher({
+            pageUrl: {
+              originAndPathMatches: 'https://github.com/.*/pull/\d*',
+            }
+          })
+        ],
+        actions: [ new chrome.declarativeContent.ShowAction() ]
+      }
+    ]);
+  });
 });
