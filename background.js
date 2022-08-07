@@ -19,4 +19,12 @@ chrome.runtime.onInstalled.addListener(() => {
       }
     ]);
   });
+
+  chrome.runtime.onMessage.addListener(
+    (request, sender, sendResponse) => {
+      console.log(request);
+      if (request.login)
+        sendResponse({hello: request.login});
+    }
+  );
 });
