@@ -1,18 +1,28 @@
 const login = document.head.querySelector('meta[name=user-login]')?.content ?? null
 
 if (login) {
-  const component = document.createElement('div')
-  component.innerText = login
 
-  const addComponent = () => {
-    if (!component.isConnected) {
-      document.querySelector('#partial-discussion-header')?.insertAdjacentElement('beforebegin', component)
+
+  const addComponents = () => {
+    if (!document.querySelector("#owleye-inline")) {
+      const div = document.createElement('div')
+      div.id = "owleye-inline"
+      div.innerText = "inline"
+      document.querySelector('#partial-discussion-header')
+        ?.insertAdjacentElement('afterend', div)
+    }
+    if (!document.querySelector("#owleye-sticky")) {
+      const div = document.createElement('div')
+      div.id = "owleye-sticky"
+      div.innerText = "sticky"
+      document.querySelector("#partial-discussion-header .js-sticky .sticky-content")
+        ?.appendChild(div)
     }
   }
 
   // const frame = document.querySelector('turbo-frame#repo-content-turbo-frame')
   let observer = new MutationObserver((mutations) => {
-    addComponent()
+    addComponents()
   })
   observer.observe(document.querySelector('body'), {childList: true, subtree: true})
 
