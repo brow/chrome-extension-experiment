@@ -22,9 +22,20 @@ chrome.runtime.onInstalled.addListener(() => {
 
   chrome.runtime.onMessage.addListener(
     (request, sender, sendResponse) => {
-      console.log(request);
-      if (request.login)
-        sendResponse({hello: request.login});
+      console.log(request)
+      if (request.login) {
+        sendResponse({
+          hello: request.login
+        })
+        chrome.action.setBadgeText({
+          text: request.login,
+          tabId: sender.tab.id
+        })
+        chrome.action.setBadgeBackgroundColor({
+          color: 'red',
+          tabId: sender.tab.id
+        })
+      }
     }
   );
 });
