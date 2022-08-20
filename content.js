@@ -2,12 +2,29 @@ const login = document.head.querySelector('meta[name=user-login]')?.content ?? n
 
 if (login) {
 
+  const setFilter = (value) => {
+    Array
+      .from(document.querySelectorAll("a.tabnav-tab"))
+      .find(x => x.innerText.includes("Files changed"))
+      .click()
+
+    const field = document.querySelector('#file-tree-filter-field')
+    field.value = value
+
+    // Seems to be required to make file list react to new value
+    field.dispatchEvent(new Event('focus'))
+  }
 
   const addComponents = () => {
     if (!document.querySelector("#owleye-inline")) {
+      const button = document.createElement('button')
+      button.innerText = 'jklp'
+      button.addEventListener('click', () => { setFilter('jklp') })
+
       const div = document.createElement('div')
       div.id = "owleye-inline"
-      div.innerText = "inline"
+      div.appendChild(button)
+
       document.querySelector('#partial-discussion-header')
         ?.insertAdjacentElement('afterend', div)
     }
