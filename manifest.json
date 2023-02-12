@@ -1,26 +1,13 @@
 {
-  "name": "Tom's Extension",
-  "description": "Description of the extension",
+  "name": "Copy Link to Page",
+  "description": "Copy a link to the current page",
   "version": "0.1",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": [],
+  "permissions": ["activeTab", "scripting"],
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "/images/get_started16.png",
-      "32": "/images/get_started32.png",
-      "48": "/images/get_started48.png",
-      "128": "/images/get_started128.png"
-    }
-  },
-  "content_scripts": [
-    {
-      "matches": ["*://github.com/*/*/pull/*"],
-      "js": ["content.js"],
-      "css": ["content.css"]
-    }
-  ]
+    "default_title": "Copy link to page"
+  }
 }
